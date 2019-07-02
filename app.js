@@ -14,7 +14,7 @@ mongoose.connect('mongodb+srv://abc:123@cluster0-0k8eh.mongodb.net/test?retryWri
     }
 });
 
-var app =express();
+var app = express();
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -64,7 +64,7 @@ app.post("/register", function(req, res) {
 //LOGIN ROUTES
 
 app.get("/login", function(req, res) {
-    res.render("login");
+   res.render("login")
 });
 
 app.post("/login",passport.authenticate("local", {
@@ -85,6 +85,6 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-app.listen(process.env.PORT || 5000, function() {
+app.listen(process.env.PORT || 3000, function() {
     console.log("Server is starting.....");
 });
