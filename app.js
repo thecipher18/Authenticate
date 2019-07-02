@@ -63,9 +63,18 @@ app.post("/register", function(req, res) {
 
 //LOGIN ROUTES
 
-app.get("/login", function(req, res) {
+app.get("/login",LoggedIn, function(req, res) {
    res.render("login")
 });
+
+function LoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return res.redirect("/secret");
+    }
+    else {
+        res.render("login");
+    }
+}
 
 app.post("/login",passport.authenticate("local", {
     successRedirect: "/secret",

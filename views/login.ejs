@@ -1,11 +1,20 @@
-<h1>Login</h1>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 
-<form action="/login" method="POST" autocomplete="off">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Login</button>
-</form>
 
-<a href="/register">Sign up!</a>
-<a href="/login">Login!</a>
-<a href="/logout">Logout!</a>
+<div class="container">
+    <h1>Login</h1>
+    <form action="/login" method="POST" autocomplete="off">
+        <div class="form-group">
+            <input class="form-control" type="text" name="username" placeholder="username">
+            <input class="form-control" type="password" name="password" placeholder="password">
+        </div>
+        <button class="btn btn-primary">Login</button>
+    </form>
+    <a href="/">Home!</a>
+    <a href="/register">Sign up!</a>
+    <a href="/login">Login!</a>
+    <a href="/logout">Logout!</a>
+</div>
