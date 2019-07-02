@@ -92,7 +92,15 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     res.redirect("/");
-}
+};
+
+//USERLIST  
+app.get("/list", function(req, res) {
+    User.find({}).exec(function(err, users) {
+        if(err) throw err;
+        res.render("list", {"Userdata":users});
+    });
+});
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server is starting.....");
