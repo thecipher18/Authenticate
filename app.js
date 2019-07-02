@@ -5,11 +5,18 @@ var passport                = require("passport");
 var bodyParser              = require("body-parser");
 var LocalStrategy           = require("passport-local");
 var passportLocalMongoose   = require("passport-local-mongoose");
-mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}, function(err) {
+    if (!err) {
+        console.log("Connecting to database...");
+    }
+    else {
+        console.log("No database...")
+    }
+});
 
 var app =express();
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + "/css"))
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(require("express-session")({
     secret: "abcdefg",
@@ -40,14 +47,13 @@ app.get("/register", function(req, res) {
 });
 
 //REGISTER ROUTES
-
 app.post("/register", function(req, res) {
     req.body.username
     req.body.password
     User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
         if(err) {   
             console.log(err);
-            returnres.render('register');
+            return res.render('register');
         } 
         passport.authenticate("local")(req,res,function() {
             res.redirect("/secret");
