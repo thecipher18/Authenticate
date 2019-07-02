@@ -5,7 +5,7 @@ var passport                = require("passport");
 var bodyParser              = require("body-parser");
 var LocalStrategy           = require("passport-local");
 var passportLocalMongoose   = require("passport-local-mongoose");
-mongoose.connect('mongodb://localhost:27017/myapp', {useNewUrlParser: true}, function(err) {
+mongoose.connect('mongodb+srv://abc:123@cluster0-0k8eh.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true}, function(err) {
     if (!err) {
         console.log("Connecting to database...");
     }
