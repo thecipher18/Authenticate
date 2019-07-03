@@ -38,8 +38,12 @@ app.get("/", function(req, res) {
     res.render("home");
 });
 
+//SECRET
 app.get("/secret",isLoggedIn, function(req, res) {
-    res.render("secret");
+    User.find({}, function(err, user) {
+        if (err) throw err;
+        res.render("secret", {"Userdata":user})
+    });
 });
 
 app.get("/register", function(req, res) {
@@ -61,6 +65,23 @@ app.post("/register", function(req, res) {
             res.redirect("/secret");
         });  
     });
+});
+
+app.get("/edit/:id", (req, res) => {
+    User.findById(req.params.id, (err, doc) => {
+       if(err) throw err;
+       res.render("edit", {
+           data: doc
+       }) 
+    });
+});
+
+app.post("/edit/:id",(req, res) => {
+   User.update({username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}, (err, user) => {
+       if (err) throw err;
+       res.redirect("/secret");
+   })
+   
 });
 
 //LOGIN ROUTES
@@ -97,12 +118,12 @@ function isLoggedIn(req, res, next) {
 };
 
 //USERLIST  
-app.get("/list", function(req, res) {
-    User.find({}).exec(function(err, users) {
-        if(err) throw err;
-        res.render("list", {"Userdata":users});
-    });
-});
+// app.get("/list", function(req, res) {
+//     User.find({}).exec(function(err, users) {
+//         if(err) throw err;
+//         res.render("list", {Userdata:users});
+//     });
+// });
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("Server is starting.....");

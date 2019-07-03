@@ -1,3 +1,4 @@
+<%= data.username %>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -6,11 +7,10 @@
 <div class="container">
     <h1>Sign up form</h1>
     <div class="form-group">
-        <form action="/register" method="POST">
-            <input type="text" class="form-control" name="username" placeholder="username" required>
-            <input type="text" class="form-control" name="firstname" placeholder="firstname">
-            <input type="text" class="form-control" name="lastname" placeholder="lastname">
-            <input type="password" class="form-control" name="password" placeholder="password" required>
+        <form action="/edit/<%= data.id %>" method="POST">
+            <input type="text" class="form-control" name="username" placeholder="username" value="<%= data.username %>"required>
+            <input type="text" class="form-control" name="firstname" value="<%= data.firstname %>" placeholder="firstname">
+            <input type="text" class="form-control" name="lastname" value="<%= data.lastname %>" placeholder="lastname">
             <button class="btn btn-primary">Submit</button>
         </form>
     </div>
