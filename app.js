@@ -49,8 +49,10 @@ app.get("/register", function(req, res) {
 //REGISTER ROUTES
 app.post("/register", function(req, res) {
     req.body.username
+    req.body.firstname
+    req.body.lastname
     req.body.password
-    User.register(new User({username: req.body.username}), req.body.password, function(err, user) {
+    User.register(new User({username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function(err, user) {
         if(err) {   
             console.log(err);
             return res.render('register');
