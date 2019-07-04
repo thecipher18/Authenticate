@@ -66,7 +66,6 @@ app.post("/register", function(req, res) {
         });  
     });
 });
-
 //EDIT
 app.get("/edit/:id", (req, res) => {
     User.findById(req.params.id, (err, doc) => {
@@ -86,10 +85,10 @@ app.post("/edit/:id",(req, res) => {
 });
 //DELETE
 app.get("/delete/:id", (req, res) => {
-    User.findOneAndDelete(req.params.id, (err, doc) => {
+   User.findByIdAndDelete(req.params.id, (err, doc) => {
         if(err) throw err;
         res.redirect("/secret");
-    });
+   });
 });
 
 //LOGIN ROUTES
