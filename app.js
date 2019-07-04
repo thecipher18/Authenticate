@@ -39,12 +39,20 @@ app.get("/", function(req, res) {
 });
 
 //SECRET
-app.get("/secret",isLoggedIn, function(req, res) {
+app.get("/secret",isLoggedIn,isUser, function(req, res) {
     User.find({}, function(err, user) {
         if (err) throw err;
         res.render("secret", {"Userdata":user})
     });
 });
+
+function isUser(req, res , next) {
+    User.findOne({"role": "User"}, (err, user) => {
+        if(user) {
+            res.render("userpage");
+        }
+    });
+};
 
 app.get("/register", function(req, res) {
     res.render("register");
@@ -56,7 +64,7 @@ app.post("/register", function(req, res) {
     req.body.firstname
     req.body.lastname
     req.body.password
-    User.register(new User({username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function(err, user) {
+    User.register(new User({username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname, role: req.body.role}), req.body.password, function(err, user) {
         if(err) {   
             console.log(err);
             return res.render('register');
@@ -97,15 +105,6 @@ app.get("/login",LoggedIn, function(req, res) {
    res.render("login")
 });
 
-function LoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return res.redirect("/secret");
-    }
-    else {
-        res.render("login");
-    }
-}
-
 app.post("/login",passport.authenticate("local", {
     successRedirect: "/secret",
     failureRedirect: "/login"
@@ -124,6 +123,14 @@ function isLoggedIn(req, res, next) {
     res.redirect("/");
 };
 
+function LoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return res.redirect("/secret");
+    }
+    else {
+        res.render("login");
+    }
+};
 //USERLIST  
 // app.get("/list", function(req, res) {
 //     User.find({}).exec(function(err, users) {
