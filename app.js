@@ -67,6 +67,7 @@ app.post("/register", function(req, res) {
     });
 });
 
+//EDIT
 app.get("/edit/:id", (req, res) => {
     User.findById(req.params.id, (err, doc) => {
        if(err) throw err;
@@ -77,11 +78,18 @@ app.get("/edit/:id", (req, res) => {
 });
 
 app.post("/edit/:id",(req, res) => {
-   User.update({username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}, (err, user) => {
+   User.updateOne({_id: req.params.id},{username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}, (err, user) => {
        if (err) throw err;
        res.redirect("/secret");
-   })
+   });
    
+});
+//DELETE
+app.get("/delete/:id", (req, res) => {
+    User.findOneAndDelete(req.params.id, (err, doc) => {
+        if(err) throw err;
+        res.redirect("/secret");
+    });
 });
 
 //LOGIN ROUTES
