@@ -7,13 +7,19 @@
     <h1>Sign up form</h1>
     <div class="form-group">
         <form action="/register" method="POST" autocomplete="off">
-            <input type="text" class="form-control" name="username" placeholder="username" required>
-            <input type="text" class="form-control" name="firstname" placeholder="firstname">
-            <input type="text" class="form-control" name="lastname" placeholder="lastname">
+            <label for="username">Email/Username:</label>
+            <input type="text" class="form-control" name="username" required>
+            <label for="fisrtname">Firstname</label>
+            <input type="text" class="form-control" name="firstname">
+            <label for="lastname">Lastname</label>
+            <input type="text" class="form-control" name="lastname">
+            <label for="role">Role</label>
             <select class="form-control" name="role">
                 <option>Admin</option>
                 <option>User</option>
-            <input type="password" class="form-control" name="password" placeholder="password" required>
+            </select>
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" required>
             <button class="btn btn-primary">Submit</button>
         </form>
     </div>

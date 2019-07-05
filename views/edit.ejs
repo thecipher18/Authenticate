@@ -6,9 +6,12 @@
 <div class="container">
     <h1><%= data.username %> Profile</h1>
     <div class="form-group">
-        <form action="/edit/<%= data.id %>" method="POST">
+        <form action="/edit/<%= data.id %>" method="POST" autocomplete="off">
+            <label for="username">Email/Username</label>
             <input type="text" class="form-control" name="username" placeholder="username" value="<%= data.username %>"required>
+            <label for="firstname">Firstname</label>
             <input type="text" class="form-control" name="firstname" value="<%= data.firstname %>" placeholder="firstname">
+            <label for="lastname">Lastname</label>
             <input type="text" class="form-control" name="lastname" value="<%= data.lastname %>" placeholder="lastname">
             <button class="btn btn-primary">Submit</button>
         </form>

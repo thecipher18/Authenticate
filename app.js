@@ -4,6 +4,7 @@ var User                    = require("./models/user");
 var passport                = require("passport");
 var bodyParser              = require("body-parser");
 var LocalStrategy           = require("passport-local");
+var ip                      = require("ip");
 var passportLocalMongoose   = require("passport-local-mongoose");
 mongoose.connect('mongodb+srv://abc:123@cluster0-0k8eh.mongodb.net/test?retryWrites=true&w=majority', {useNewUrlParser: true}, function(err) {
     if (!err) {
@@ -47,11 +48,13 @@ app.get("/secret",isLoggedIn,isUser, function(req, res) {
 });
 
 function isUser(req, res , next) {
-    User.findOne({"role": "User"}, (err, user) => {
-        if(user) {
-            res.render("userpage");
-        }
-    });
+    var currentUser = req.user;
+    if(currentUser.role == "User") {
+        res.render("profile", {Userdata: currentUser});
+    }
+    else {
+        return next();
+    }
 };
 
 app.get("/register", function(req, res) {
@@ -140,5 +143,5 @@ function LoggedIn(req, res, next) {
 // });
 
 app.listen(process.env.PORT || 3000, function() {
-    console.log("Server is starting.....");
+    console.log("Server is starting..." + ip.address());
 });
