@@ -47,6 +47,13 @@ app.get("/secret",isLoggedIn,isUser, function(req, res) {
     });
 });
 
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/");
+};
+
 function isUser(req, res , next) {
     var currentUser = req.user;
     if(currentUser.role == "User") {
@@ -108,6 +115,15 @@ app.get("/login",LoggedIn, function(req, res) {
    res.render("login")
 });
 
+function LoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return res.redirect("/secret");
+    }
+    else {
+        res.render("login");
+    }
+};
+
 app.post("/login",passport.authenticate("local", {
     successRedirect: "/secret",
     failureRedirect: "/login"
@@ -119,21 +135,6 @@ app.get("/logout", function(req, res) {
     res.redirect("/");
 });
 
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/");
-};
-
-function LoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return res.redirect("/secret");
-    }
-    else {
-        res.render("login");
-    }
-};
 //USERLIST  
 // app.get("/list", function(req, res) {
 //     User.find({}).exec(function(err, users) {
